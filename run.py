@@ -43,11 +43,11 @@ print("Stopping instances:")
 for delete in deleted:
     try:
         print(f"Instance {get_instance_name(delete)}({delete['InstanceId']}) should stop")
-        # ec2.stop_instances(InstanceIds=[delete['InstanceId']], DryRun=True)
+        ec2.stop_instances(InstanceIds=[delete['InstanceId']], DryRun=True)
     except ClientError as e:
         if 'DryRunOperation' in str(e):
-            # ec2.stop_instances(InstanceIds=[delete['InstanceId']], DryRun=False)
             print("Stopping", get_instance_name(delete), delete['InstanceId'])
+            ec2.stop_instances(InstanceIds=[delete['InstanceId']], DryRun=False)
 
 
 print("Not stopping instances:")
